@@ -1,4 +1,6 @@
-
+ https://nata-stelmakh.github.io/Weather/.
+ 
+ ![](Screenshot%20(148).png)
 
 
 1.created a function that retrieves data about current weather conditions at chosen city
