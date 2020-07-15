@@ -22,7 +22,12 @@
    
     var cityname=""
      // Initial array of cities
-    var cities = ["Wanaque", "Haskell","Ringwood"];
+     
+    var cities =["Wanaque", "Haskell","Ringwood"]
+   //  localStorage.getItem("cities",JSON.parse("cities"))
+    
+   
+   
 
     // Function for displaying previewed cities
 
@@ -39,9 +44,6 @@
           a.addClass("savedCity");
 
            a.addClass("btn btn-outline-secondary") 
-
-
-
          // Adding a data-attribute
           a.attr("data-name", cities[i]);
            // Providing the initial button text
@@ -56,9 +58,7 @@
 
    $("#search").on("click", function (event){
       event.preventDefault();
-   
-
-   
+      
     var cityname = $("#townSearch").val().trim();
     $("#currentCity").empty()
     $("#forecast").empty()
@@ -219,7 +219,8 @@ $(newCard).append(domDescriptF)
 
    });
 // The city from the textbox is then added to our array
-   cities.push(cityname);
+   cities.push(cityname)
+   localStorage.setItem("cities", JSON.stringify(cities));;
  // Calling renderButtons which handles the processing of our city movie array
    renderButtons();
 })
