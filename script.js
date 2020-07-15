@@ -32,16 +32,21 @@
    // (this is necessary otherwise you will have repeat buttons)
    for (var i = 0; i < cities.length; i++) {
 
-    //       // Then dynamicaly generating buttons for each movie in the array
-    //       // This code $("<button>") is all jQuery needs to create the beginning and end tag. (<button></button>)
+     // Then dynamicaly generating buttons for each movie in the array
+    // This code $("<button>") is all jQuery needs to create the beginning and end tag. (<button></button>)
           var a = $("<button>");
-    //       // Adding a class of movie to our button
+         // Adding a class to our button
           a.addClass("savedCity");
-    //       // Adding a data-attribute
+
+           a.addClass("btn btn-outline-secondary") 
+
+
+
+         // Adding a data-attribute
           a.attr("data-name", cities[i]);
-    //       // Providing the initial button text
+           // Providing the initial button text
           a.text(cities[i]);
-    //       // Adding the button to the buttons-view div
+         // Adding the button to the buttons-view div
           $("#chosenPlaces").append(a);
         }
     }
@@ -49,16 +54,21 @@
 
 //======================CLICK EVENT
 
-   $("#search").on("click", function(event) {
-      
+   $("#search").on("click", function (event){
+      event.preventDefault();
+   
+
+   
+    var cityname = $("#townSearch").val().trim();
     $("#currentCity").empty()
     $("#forecast").empty()
 
 
    //Here we grab the text from the input box
-    var cityname = $("#townSearch").val().trim();
+   
     console.log(cityname)
-     var domCity = $("<p>")
+     var domCity = $("<h1>")
+     domCity.addClass("display-4")
     $(domCity).text(cityname)
     $("#currentCity").append(domCity)
     // Here we construct our URL
@@ -95,17 +105,17 @@
    console.log(temp)
   // creates an element to hold current data displayed
   var domTemp = $("<p>")
-  $(domTemp).text(temp + "F")
+  $(domTemp).text("Temperature: "+ temp + "F")
   //displays the data
   $("#currentCity").append(domTemp)
-    
+       
 //=============I SEE HUMIDITY    
 //retrieves the current humidity data
 var humid = response.main.humidity
 console.log(humid)
 // creates an element to hold current data displayed
 var domHumid = $("<p>")
-$(domHumid).text(humid+"%")
+$(domHumid).text("Humidity: "+humid+"%")
 //displays the data
 $("#currentCity").append(domHumid)
 //================I SEE WIND SPEED
@@ -114,7 +124,7 @@ var windSpeed = response.wind.speed
 console.log(windSpeed)
 // creates an element to hold current data displayed
 var domWindSpeed = $("<p>")
-$(domWindSpeed).text(windSpeed+"mph")
+$(domWindSpeed).text("Wind: "+windSpeed+"mph")
 //displays the data
 $("#currentCity").append(domWindSpeed)
 //=======================Description
@@ -123,10 +133,15 @@ var descript = response.weather[0].description
 console.log(descript)
 // creates an element to hold current data displayed
 var domDescript = $("<p>")
-$(domDescript).text(descript)
+$(domDescript).text("Weather: "+descript)
 //displays the data
 $("#currentCity").append(domDescript)
 
+var iconId = response.weather[0].icon
+  console.log(iconId)
+var newIcon = $("<img>")
+$(newIcon).attr('src',iconId)
+$("#currentCity").append(newIcon)
 
 var longitude = response.coord.lon
 var latitude = response.coord.lat
@@ -142,7 +157,9 @@ var queryURLforecast = "https://api.openweathermap.org/data/2.5/onecall?lat="+ l
      }).then(function(response) {
          console.log(response)
 // each card contains 
-for (var i = 1; i < 5; i++) {
+for (var i = 1; i < 6; i++) {
+
+var newCard =$("<div class='card'>")
  // date 
 //format unix timestamp into normal day and hour
 var nextDayDate = response.daily[i].dt*1000
@@ -151,10 +168,11 @@ var dayF = new Date(nextDayDate).toLocaleDateString("en-US")
  console.log(dayF) 
   
   // creates an element to hold current data displayed
- var domDayF = $("<p>")
+ var domDayF = $("<h5>")
  $(domDayF).text(dayF)
  //displays the data
- $("#forecast").append(domDayF)
+ $(newCard).append(domDayF)
+ $("#forecast").append(newCard)
 
     
 // Temperature response.temp
@@ -162,26 +180,41 @@ var tempF = response.daily[i].temp.day
    console.log(tempF)
   // creates an element to hold current data displayed
   var domTempF = $("<p>")
-  $(domTempF).text(tempF + "F")
+  $(domTempF).text("Temp " +tempF + "F")
   //displays the data
-  $("#forecast").append(domTempF)
+  $(newCard).append(domTempF)
+ $("#forecast").append(newCard)
+  
 
+  
 // humidity response.main.humidity
 var humidF = response.daily[i].humidity
    console.log(humidF)
   // creates an element to hold current data displayed
   var domHumidF = $("<p>")
-  $(domHumidF).text(humidF + "%")
+  $(domHumidF).text("Humid "+humidF + "%")
   //displays the data
-  $("#forecast").append(domHumidF)
+  $(newCard).append(domHumidF)
+ $("#forecast").append(newCard)
 
-  var descriptF = response.daily[i].weather[0].description
+var descriptF = response.daily[i].weather[0].description
 console.log(descriptF)
 // creates an element to hold current data displayed
 var domDescriptF = $("<p>")
 $(domDescriptF).text(descriptF)
 //displays the data
-$("#forecast").append(domDescriptF)
+$(newCard).append(domDescriptF)
+ $("#forecast").append(newCard)
+
+// var iconF = response.daily[i].weather[0].description
+// console.log(iconF)
+// // creates an element to hold current data displayed
+// var domIconF = $("<img>")
+// $(domIcontF).attr('src',iconF)
+// //displays the data
+// $("#forecast").append(domIconF)
+
+
 }
 
    });
@@ -192,6 +225,7 @@ $("#forecast").append(domDescriptF)
 })
    })
 
+//  when button with previwed city is clicked, then we run function weather search again with the name of the clicked city
 
 // WHEN I view current weather conditions for that city
 // THEN I am presented with the city name, the date, an icon representation of weather conditions, the temperature, the humidity, the wind speed, and the UV index
@@ -207,29 +241,7 @@ $("#forecast").append(domDescriptF)
 
 // WHEN I open the weather dashboard
 // THEN I am presented with the last searched city forecast  
+//Save an array with list of cities to the local storage
 
  
- // This function handles events where the add movie button is clicked
  
-//  function renderButtons() {
-
-//     // Deleting the buttons prior to adding new movies
-//     // (this is necessary otherwise you will have repeat buttons)
-//     $("#buttons-view").empty();
-
-//     // Looping through the array of movies
-//     for (var i = 0; i < movies.length; i++) {
-
-//       // Then dynamicaly generating buttons for each movie in the array
-//       // This code $("<button>") is all jQuery needs to create the beginning and end tag. (<button></button>)
-//       var a = $("<button>");
-//       // Adding a class of movie to our button
-//       a.addClass("movie");
-//       // Adding a data-attribute
-//       a.attr("data-name", movies[i]);
-//       // Providing the initial button text
-//       a.text(movies[i]);
-//       // Adding the button to the buttons-view div
-//       $("#buttons-view").append(a);
-//     }
-//   }
