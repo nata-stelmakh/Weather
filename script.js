@@ -1,4 +1,5 @@
 
+// GIVEN a weather dashboard with form input
 // when I open the app I see dasboard divided in two parts
 // on the left i have an input form with search button
 // When I click on a search button , it will take a text from the input and add into url
@@ -10,8 +11,44 @@
 // <button class="btn btn-outline-secondary" type="button" id="search" id="button-addon2">Search</button>
 //==============================================================
 
+//Create a search input to find a city
+//When click submit button, return a city from an API
 
 // Start with ajax call that will pull out info
+   
+   // On a major dashboard i see :
+   //current city
+   //cities that user been looking before
+   
+    var cityname=""
+     // Initial array of cities
+    var cities = ["Wanaque", "Haskell","Ringwood"];
+
+    // Function for displaying previewed cities
+
+    function renderButtons() {
+    $("#chosenPlaces").empty()
+   // Delete the content inside the buttons-view div prior to adding new movies
+   // (this is necessary otherwise you will have repeat buttons)
+   for (var i = 0; i < cities.length; i++) {
+
+    //       // Then dynamicaly generating buttons for each movie in the array
+    //       // This code $("<button>") is all jQuery needs to create the beginning and end tag. (<button></button>)
+          var a = $("<button>");
+    //       // Adding a class of movie to our button
+          a.addClass("savedCity");
+    //       // Adding a data-attribute
+          a.attr("data-name", cities[i]);
+    //       // Providing the initial button text
+          a.text(cities[i]);
+    //       // Adding the button to the buttons-view div
+          $("#chosenPlaces").append(a);
+        }
+    }
+       renderButtons()
+
+//======================CLICK EVENT
+
    $("#search").on("click", function(event) {
       
     $("#currentCity").empty()
@@ -19,15 +56,11 @@
 
 
    //Here we grab the text from the input box
-    var cityname = $("#townSearch").val();
+    var cityname = $("#townSearch").val().trim();
     console.log(cityname)
-   // On a major dashboard i see :
-   //current city
-    var domCity = $("<p>")
+     var domCity = $("<p>")
     $(domCity).text(cityname)
     $("#currentCity").append(domCity)
-
-    
     // Here we construct our URL
     
     var queryURL = "https://api.openweathermap.org/data/2.5/weather?q="+cityname+"&appid=7daff24a3e69fdc92c380db5a8ea82e4&units=imperial"
@@ -36,6 +69,9 @@
     method: "GET"
      }).then(function(response) {
          console.log(response)
+    // WHEN I search for a city
+    // THEN I am presented with current and future conditions for that city and that city is added to the search history
+
     //============I SEE CURRENT DATE  
     //retrieves the current date data
     // multiplied by 1000 so that the argument is in milliseconds, not seconds.
@@ -149,32 +185,51 @@ $("#forecast").append(domDescriptF)
 }
 
    });
-
+// The city from the textbox is then added to our array
+   cities.push(cityname);
+ // Calling renderButtons which handles the processing of our city movie array
+   renderButtons();
 })
    })
 
 
- // When I click on any button on the left it brings up on the dashboard info about chosen city
-//   On the left side i see stacked buttons each of those is named by specific city 
-//     Those buttons will be created in a process of working
-// GIVEN a weather dashboard with form inputs
-
-//Create a search input to find a city
-//When click submit button, return a city from an API
-
-// WHEN I search for a city
-// THEN I am presented with current and future conditions for that city and that city is added to the search history
-
-//3.Create a stack of cards that will contain weather conditions 
-//4.
-
 // WHEN I view current weather conditions for that city
 // THEN I am presented with the city name, the date, an icon representation of weather conditions, the temperature, the humidity, the wind speed, and the UV index
+
 // WHEN I view the UV index
 // THEN I am presented with a color that indicates whether the conditions are favorable, moderate, or severe
+
 // WHEN I view future weather conditions for that city
 // THEN I am presented with a 5-day forecast that displays the date, an icon representation of weather conditions, the temperature, and the humidity
+
 // WHEN I click on a city in the search history
 // THEN I am again presented with current and future conditions for that city
+
 // WHEN I open the weather dashboard
 // THEN I am presented with the last searched city forecast  
+
+ 
+ // This function handles events where the add movie button is clicked
+ 
+//  function renderButtons() {
+
+//     // Deleting the buttons prior to adding new movies
+//     // (this is necessary otherwise you will have repeat buttons)
+//     $("#buttons-view").empty();
+
+//     // Looping through the array of movies
+//     for (var i = 0; i < movies.length; i++) {
+
+//       // Then dynamicaly generating buttons for each movie in the array
+//       // This code $("<button>") is all jQuery needs to create the beginning and end tag. (<button></button>)
+//       var a = $("<button>");
+//       // Adding a class of movie to our button
+//       a.addClass("movie");
+//       // Adding a data-attribute
+//       a.attr("data-name", movies[i]);
+//       // Providing the initial button text
+//       a.text(movies[i]);
+//       // Adding the button to the buttons-view div
+//       $("#buttons-view").append(a);
+//     }
+//   }
