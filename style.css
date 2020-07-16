@@ -1,6 +1,10 @@
 body{
-    background-color:white;
+    background-color:rgb(168, 210, 235);
     
+}
+.jumbotron{
+    background-color: rgb(33, 68, 139);
+    color: white;
 }
 
 .container{
