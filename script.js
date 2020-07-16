@@ -140,7 +140,7 @@ $("#currentCity").append(domDescript)
 var iconId = response.weather[0].icon
   console.log(iconId)
 var newIcon = $("<img>")
-var srcIcon = "http://openweathermap.org/img/wn/"+ iconId+".png"
+var srcIcon = "http://openweathermap.org/img/wn/"+ iconId+"@2x.png"
 $(newIcon).attr('src',srcIcon)
 $("#currentCity").append(newIcon)
 
@@ -175,6 +175,14 @@ var dayF = new Date(nextDayDate).toLocaleDateString("en-US")
  $(newCard).append(domDayF)
  $("#forecast").append(newCard)
 
+//Icon
+var iconIdF = response.daily[i].weather[0].icon
+  console.log(iconIdF)
+var newIconF = $("<img>")
+var srcIconF = "http://openweathermap.org/img/wn/"+ iconIdF +"@2x.png"
+$(newIconF).attr('src',srcIconF)
+$(newCard).append(newIconF)
+$("#forecast").append(newCard)
     
 // Temperature response.temp
 var tempF = response.daily[i].temp.day
