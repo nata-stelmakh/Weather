@@ -140,7 +140,8 @@ $("#currentCity").append(domDescript)
 var iconId = response.weather[0].icon
   console.log(iconId)
 var newIcon = $("<img>")
-$(newIcon).attr('src',iconId)
+var srcIcon = "http://openweathermap.org/img/wn/"+ iconId+".png"
+$(newIcon).attr('src',srcIcon)
 $("#currentCity").append(newIcon)
 
 var longitude = response.coord.lon
