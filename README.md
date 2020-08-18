@@ -11,12 +11,10 @@
   
 
   ## Table of Contents  
-  * [Installation](#installation)
+  
   * [Usage](#usage)
-  * [Contributors](#contibutors)
   * [License](#license)
-  * [Test](#test)
-  * [Questions](#questions)
+  
   
   ## Usage
   
