@@ -1,9 +1,31 @@
- https://nata-stelmakh.github.io/Weather/.
  
- ![](Screenshot%20(148).png)
+  [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+  https://nata-stelmakh.github.io/Weather/
+  # Weather
+   ![](Screenshot%20(148).png)
+  ## nata-stelmakh
+  
+  ## Description 
+  
+  An application that shows weather in chosen cities.
+  
+
+  ## Table of Contents  
+  * [Installation](#installation)
+  * [Usage](#usage)
+  * [Contributors](#contibutors)
+  * [License](#license)
+  * [Test](#test)
+  * [Questions](#questions)
+  
+  ## Usage
+  
+  After user enters city name in the input, on the main dashboard will be displayed temperature, humidity, date, wind speed, weather conditions.Under the main dashboard will be presented cards with forecast for the next 5 days.Every searched city is saved in localStorage.
+
+  
+  ## License
+  
+  MIT
 
 
-1.created a function that retrieves data about current weather conditions at chosen city
-2.After user enters city name in the input, on the main dashboard will be displayed temperature, humidity, date, wind speed, weather conditions
-3.Under the main dashboard will be presented cards with forecast for the next 5 days
-4.Every searched city is saved in localStorage  
+  stelmakh.natallia@gmail.com
